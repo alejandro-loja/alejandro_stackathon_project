@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Task },
+  models: { User, Task, Assignee },
 } = require("../server/db");
 const { faker } = require("@faker-js/faker");
 /**
@@ -14,21 +14,51 @@ async function seed() {
   console.log("db synced!");
 
   // Creating Users
-  const users = await Promise.all([
-    User.create({ username: "cody", password: "123" }),
-    User.create({ username: "murphy", password: "123" }),
-    Task.create({ title: "eat dirt", description: "123", priority: "high" }),
-    Task.create({ title: "sleep", description: "123", priority: "low" }),
+  await Assignee.create({});
+
+  const lucy = await User.create({
+    username: "lucy",
+    password: "lucy",
+    role: "supervisor",
+  });
+  const ale = await User.create({
+    username: "ale",
+    password: "ale",
+    role: "manager",
+  });
+  const joe = await User.create({ username: "joe", password: "joe" });
+  const moe = await User.create({ username: "moe", password: "moe" });
+
+  const [eatDirt, sleep] = await Promise.all([
+    Task.create({
+      title: "eat dirt",
+      description: "eat dirt",
+      priority: "high",
+    }),
+    Task.create({ title: "sleep", description: "sleep alot", priority: "low" }),
   ]);
 
-  console.log(`seeded ${users.length} users`);
+  ale.managerId = lucy.id;
+  joe.managerId = ale.id;
+  moe.managerId = ale.id;
+
+  eatDirt.userId = ale.id;
+  sleep.userId = ale.id;
+
+  await Assignee.create({ taskId: eatDirt.id, userId: joe.id });
+  await Assignee.create({ taskId: eatDirt.id, userId: moe.id });
+
+  await Promise.all[
+    (ale.save(), joe.save(), moe.save(), eatDirt.save(), sleep.save())
+  ];
+  // console.log(`seeded ${tasks.length} tasks`);
   console.log(`seeded successfully`);
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
-  };
+  // return {
+  //   users: {
+  //     cody: users[0],
+  //     murphy: users[1],
+  //   },
+  // };
 }
 
 /*

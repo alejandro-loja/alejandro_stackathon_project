@@ -4,15 +4,22 @@ const db = require("./db");
 
 const User = require("./models/User");
 const Task = require("./models/Task");
+const Assignee = require("./models/Assignee");
 //associations could go here!
 User.hasMany(Task);
-// Order.hasMany(LineItem);
 Task.belongsTo(User);
+
+Task.hasMany(Assignee);
+Assignee.belongsTo(Task);
+Assignee.belongsTo(User);
+
+User.belongsTo(User, { as: "manager" });
 
 module.exports = {
   db,
   models: {
     User,
     Task,
+    Assignee,
   },
 };

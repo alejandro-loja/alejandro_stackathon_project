@@ -1,18 +1,17 @@
 const router = require("express").Router();
 const {
-  models: { Task, User },
+  models: { User, Task, Assignee },
 } = require("../db");
-const Assignee = require("../db/models/Assignee");
 module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
-    const tasks = await Task.findAll({
+    const assignees = await Assignee.findAll({
       // explicitly select only the id and username fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
     });
-    res.json(tasks);
+    res.json(assignees);
   } catch (err) {
     next(err);
   }
@@ -20,18 +19,21 @@ router.get("/", async (req, res, next) => {
 
 router.get("/more", async (req, res, next) => {
   try {
-    const tasks = await Task.findAll({
+    const assignees = await Assignee.findAll({
       include: [
         {
-          model: Assignee,
-          include: [User],
+          model: Task,
+          //   model: User,
         },
+      ],
+      include: [
         {
+          //   model: Task,
           model: User,
         },
       ],
     });
-    res.json(tasks);
+    res.json(assignees);
   } catch (err) {
     next(err);
   }

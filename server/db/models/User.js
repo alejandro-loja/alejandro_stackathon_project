@@ -18,6 +18,7 @@ const User = db.define("user", {
   role: {
     type: Sequelize.ENUM,
     values: ["supervisor", "manager", "technician"],
+    defaultValue: "technician",
   },
 });
 
