@@ -7,7 +7,9 @@ import { connect } from "react-redux";
 export const Home = ({ auth }) => {
   return (
     <div>
-      <h3>Welcome, {auth.username}</h3>
+      <h3>Hello, {auth.username}</h3>
+
+      <h3>Reports to: {auth.manager.username}</h3>
     </div>
   );
 };
