@@ -42,3 +42,12 @@ router.get("/more", async (req, res, next) => {
     next(err);
   }
 });
+
+router.get("/change", async (req, res, next) => {
+  try {
+    const task = await Task.updateTask(req.body, req.params.id);
+    res.json(task);
+  } catch (err) {
+    next(err);
+  }
+});
