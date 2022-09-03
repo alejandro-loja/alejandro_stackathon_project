@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
+import Tasks from "./Tasks/Tasks";
+import Task from "./Tasks/Task";
 import Home from "./components/Home";
 import { me, fetchTasks } from "./store";
 
@@ -14,20 +16,15 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn, tasks } = this.props;
+    const { isLoggedIn } = this.props;
 
     return (
       <div>
-        {!tasks
-          ? "no task"
-          : tasks.map((task) => (
-              <p className="text-primary" key={task.id}>
-                {task.title}
-              </p>
-            ))}
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
+            <Route path="/tasks" exact component={Tasks} />
+            <Route path="/tasks/:id" exact component={Task} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -35,6 +32,7 @@ class Routes extends Component {
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            {/* <Redirect to="/signup" /> */}
           </Switch>
         )}
       </div>
@@ -46,9 +44,9 @@ class Routes extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log(state.tasks);
+  // console.log(state.tasks);
   return {
-    tasks: state.tasks,
+    // tasks: state.tasks || [],
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,

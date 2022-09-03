@@ -8,12 +8,19 @@ const Task = db.define("task", {
   description: {
     type: Sequelize.STRING,
   },
+  notes: {
+    type: Sequelize.STRING,
+  },
   priority: {
     type: Sequelize.ENUM,
     values: ["high", "low", "medium"],
   },
   dateComplete: {
     type: Sequelize.DATE,
+  },
+  department: {
+    type: Sequelize.ENUM,
+    values: ["a", "b", "c"],
   },
 });
 
