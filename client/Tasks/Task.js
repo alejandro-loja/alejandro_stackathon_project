@@ -5,8 +5,13 @@ import { connect } from "react-redux";
 const Tasks = ({ task }) => {
   return (
     <div key={task.id}>
-      <h1>{task.title}</h1>
-      <p>{task.description}</p>
+      <div>
+        <h1>Title: {task.title}</h1>
+        <p>Description: {task.description}</p>
+      </div>
+      <div>
+        <p>Notes: {task.notes}</p>
+      </div>
       <div>
         <h2>Responsibilty</h2>
         <h3>{task.user?.username}</h3>

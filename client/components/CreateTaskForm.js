@@ -35,6 +35,7 @@ class CreateTaskForm extends Component {
   render() {
     const { title, description, priority, notes } = this.state;
     const { handleSubmit, onChange } = this;
+    const { assignToList } = this.props;
     // const { campuses } = this.props;
     return (
       <form onSubmit={handleSubmit}>
@@ -45,13 +46,13 @@ class CreateTaskForm extends Component {
           name="title"
           onChange={onChange}
         />
-        <input
+        <textarea
           placeholder="Description (Required)"
           name="description"
           value={description}
           onChange={onChange}
         />
-        <input
+        <textarea
           placeholder="Notes"
           name="notes"
           value={notes}
@@ -66,12 +67,42 @@ class CreateTaskForm extends Component {
           <option value="high">High</option>
         </select>
 
+        {assignToList.map((user) => {
+          return (
+            <div key={user.id}>
+              <input
+                onChange={onChange}
+                type="checkbox"
+                id="vehicle1"
+                name="vehicle1"
+                value={user.id}
+              />
+              <label htmlFor="vehicle1">{user.username}</label>
+            </div>
+          );
+        })}
+        <p>test</p>
         <button disabled={!title || !description || !priority}>Create</button>
       </form>
     );
   }
 }
-const mapState = (state) => {};
+const mapState = (state) => {
+  const role = state.auth.role;
+  // const assignToList = state.users || [];
+
+  const assignToList = state.users.filter((user) => {
+    if (role === "manager") {
+      return user.role === "technician";
+    } else if (role === "supervisor") {
+      return user.role === "manager";
+    }
+  });
+  console.log(assignToList);
+  return {
+    assignToList,
+  };
+};
 const mapDispatch = (dispatch) => {
   return {
     createTask: (task) => {
@@ -79,4 +110,4 @@ const mapDispatch = (dispatch) => {
     },
   };
 };
-export default connect(null, mapDispatch)(CreateTaskForm);
+export default connect(mapState, mapDispatch)(CreateTaskForm);

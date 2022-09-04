@@ -5,7 +5,7 @@ import { Login, Signup } from "./components/AuthForm";
 import Tasks from "./Tasks/Tasks";
 import Task from "./Tasks/Task";
 import Home from "./components/Home";
-import { me, fetchTasks } from "./store";
+import { me, fetchTasks, fetchUsers } from "./store";
 
 /**
  * COMPONENT
@@ -58,6 +58,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData: () => {
       dispatch(me());
       dispatch(fetchTasks());
+      dispatch(fetchUsers());
     },
   };
 };

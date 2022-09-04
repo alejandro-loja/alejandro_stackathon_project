@@ -15,7 +15,7 @@ const tasks = (state = [], action) => {
   return state;
 };
 
-// //get all products
+// //get all tasks
 export const fetchTasks = () => {
   return async (dispatch) => {
     const tasks = (
@@ -28,7 +28,7 @@ export const fetchTasks = () => {
     dispatch({ type: "SET_TASKS", tasks });
   };
 };
-//create product
+//create user
 export const createTask = (task) => {
   return async (dispatch) => {
     task = (
