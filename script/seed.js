@@ -28,6 +28,8 @@ async function seed() {
   });
   const joe = await User.create({ username: "joe", password: "joe" });
   const moe = await User.create({ username: "moe", password: "moe" });
+  const dawn = await User.create({ username: "dawn", password: "dawn" });
+  const maria = await User.create({ username: "maria", password: "maria" });
 
   const [eatDirt, sleep] = await Promise.all([
     Task.create({
