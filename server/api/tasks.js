@@ -5,6 +5,8 @@ const {
 const Assignee = require("../db/models/Assignee");
 module.exports = router;
 
+// api/tasks
+
 router.get("/", async (req, res, next) => {
   try {
     const tasks = await Task.findAll({
@@ -37,17 +39,25 @@ router.get("/more", async (req, res, next) => {
         },
       ],
     });
-    res.json(tasks);
+    res.send(tasks);
   } catch (err) {
     next(err);
   }
 });
 
-router.get("/change", async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   try {
     const task = await Task.updateTask(req.body, req.params.id);
     res.json(task);
   } catch (err) {
     next(err);
+  }
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    res.send(await Task.createTask(req.body));
+  } catch (ex) {
+    next(ex);
   }
 });

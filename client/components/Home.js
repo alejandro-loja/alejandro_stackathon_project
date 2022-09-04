@@ -5,11 +5,18 @@ import { connect } from "react-redux";
  * COMPONENT
  */
 export const Home = ({ auth }) => {
+  const capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
   return (
     <div>
-      <h3>Hello, {auth.username}</h3>
+      <h1>Hello, {capitalize(auth.username)}</h1>
+      <h2>Role: {capitalize(auth.role)}</h2>
 
-      <h3>Reports to: {auth.manager.username}</h3>
+      <h3>
+        Reports to:{" "}
+        {auth.manager ? capitalize(auth.manager.username) : "Not Assigned"}
+      </h3>
     </div>
   );
 };

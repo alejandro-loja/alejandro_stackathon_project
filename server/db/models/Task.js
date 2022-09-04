@@ -26,8 +26,10 @@ const Task = db.define("task", {
 
 Task.updateTask = async function (taskReq, id) {
   let task = await this.findByPk(id * 1);
-
-  product = await task.update(taskReq);
+  task = await task.update(taskReq);
   return task;
+};
+Task.createTask = async function (task) {
+  return await Task.create(task);
 };
 module.exports = Task;

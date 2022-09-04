@@ -28,17 +28,19 @@ export const fetchTasks = () => {
     dispatch({ type: "SET_TASKS", tasks });
   };
 };
-// //create product
-// export const createProduct = (product) => {
-//     return async(dispatch) => {
-//         product = (await axios.post('/api/products/', product, {
-//             headers: {
-//                 authorization: window.localStorage.getItem('token')
-//             }
-//         })).data;
-//         dispatch({type: 'CREATE_PRODUCT', product});
-//     }
-// };
+//create product
+export const createTask = (task) => {
+  return async (dispatch) => {
+    task = (
+      await axios.post("/api/tasks/", task, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "CREATE_TASK", task });
+  };
+};
 // //update product
 // export const updateProduct = (product, id) => {
 //     return async(dispatch) => {
