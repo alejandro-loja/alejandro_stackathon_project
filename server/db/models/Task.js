@@ -14,6 +14,7 @@ const Task = db.define("task", {
   priority: {
     type: Sequelize.ENUM,
     values: ["high", "low", "medium"],
+    defautValue: "low",
   },
   dateComplete: {
     type: Sequelize.DATE,
@@ -21,6 +22,7 @@ const Task = db.define("task", {
   department: {
     type: Sequelize.ENUM,
     values: ["a", "b", "c"],
+    allowNull: true,
   },
 });
 

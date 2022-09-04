@@ -6,10 +6,10 @@ import { logout } from "../store";
 const Navbar = ({ handleClick, isLoggedIn, auth }) => (
   // <h1>Useful App</h1>
   <nav className="navbar navbar-expand-lg bg-light mb-4">
-    <div classNav="container-fluid">
+    <div className="container-fluid">
       {isLoggedIn ? (
         <div>
-          <a class="navbar-brand" href="#">
+          <a className="navbar-brand" href="#">
             Hi, {auth.username}
           </a>
           {/* The navbar will show these links after you log in */}
@@ -18,6 +18,7 @@ const Navbar = ({ handleClick, isLoggedIn, auth }) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <span className="navbar-text">Role: {auth.role}</span>
         </div>
       ) : (
         <div>
