@@ -14,8 +14,6 @@ async function seed() {
   console.log("db synced!");
 
   // Creating Users
-  await Assignee.create({});
-
   const lucy = await User.create({
     username: "lucy",
     password: "lucy",

@@ -6,6 +6,8 @@ import Tasks from "./Tasks/Tasks";
 import Task from "./Tasks/Task";
 import Home from "./components/Home";
 import { me, fetchTasks, fetchUsers } from "./store";
+import auth from "./store/auth";
+import AssignedTasks from "./Tasks/AssignedTasks";
 
 /**
  * COMPONENT
@@ -16,15 +18,20 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, auth } = this.props;
 
     return (
       <>
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Route path="/tasks" exact component={Tasks} />
+            {auth.role === "technician" ? (
+              <Route path="/tasks" exact component={AssignedTasks} />
+            ) : (
+              <Route path="/tasks" exact component={Tasks} />
+            )}
             <Route path="/tasks/:id" exact component={Task} />
+
             {/* <Redirect to="/home" /> */}
           </Switch>
         ) : (
@@ -49,6 +56,7 @@ const mapState = (state) => {
     // tasks: state.tasks || [],
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
+    auth: state.auth,
     isLoggedIn: !!state.auth.id,
   };
 };

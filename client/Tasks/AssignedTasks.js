@@ -2,12 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import CreateTaskForm from "../components/CreateTaskForm";
-import auth from "../store/auth";
 
 /**
  * COMPONENT
  */
-const Tasks = ({ tasks, auth }) => {
+const AssignedTasks = ({ myTasks, allTasks }) => {
   const color = (priority) => {
     if (priority === "high") {
       return "danger";
@@ -19,11 +18,12 @@ const Tasks = ({ tasks, auth }) => {
   };
 
   return (
-    <div className="container text-center">
+    <div className="container">
       <div className="row">
         <div className="col">
-          {tasks ? (
-            tasks.map((task) => (
+          <h1 className="text-center">Your Assignments</h1>
+          {myTasks ? (
+            myTasks.map((task) => (
               <div className="border p-2" key={task.id}>
                 <h1>
                   <Link to={`/tasks/${task.id}`}>{task.title} </Link>
@@ -35,21 +35,18 @@ const Tasks = ({ tasks, auth }) => {
                     Priority: {task.priority}
                   </span>
                 </h1>
-                <h4 className="text-end">
-                  Created By{" "}
-                  {task.userId === auth.id ? "You" : task.user?.username}
-                </h4>
+                <h4 className="text-end">Assigned By {task.user.username}</h4>
               </div>
             ))
           ) : (
             <div>
-              <h1>No Tasks Yet</h1>
+              <h1>You Have not Current Tasks</h1>
             </div>
           )}
         </div>
-        <div className="col">
+        {/* <div className="col">
           <CreateTaskForm />
-        </div>
+        </div> */}
       </div>
     </div>
   );
@@ -59,10 +56,11 @@ const Tasks = ({ tasks, auth }) => {
  * CONTAINER
  */
 const mapState = (state) => {
+  console.log(state.auth);
   return {
-    tasks: state.tasks || [],
-    auth: state.auth,
+    allTasks: state.tasks || [],
+    myTasks: state.tasks || [],
   };
 };
 
-export default connect(mapState)(Tasks);
+export default connect(mapState)(AssignedTasks);

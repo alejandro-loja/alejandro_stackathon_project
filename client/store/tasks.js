@@ -38,6 +38,7 @@ export const createTask = (task) => {
         },
       })
     ).data;
+    console.log(task.id);
     dispatch({ type: "CREATE_TASK", task });
   };
 };

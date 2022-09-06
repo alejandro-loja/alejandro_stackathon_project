@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createTask } from "../store/";
+import auth from "../store/auth";
 
 class CreateTaskForm extends Component {
   constructor() {
@@ -24,11 +25,12 @@ class CreateTaskForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log(this.state);
-    this.props.createTask({ ...this.state });
+    this.props.createTask({ ...this.state, userId: this.props.auth.id });
     this.setState({
       title: "",
       description: "",
       priority: "",
+      notes: "",
     });
   }
 
@@ -58,6 +60,7 @@ class CreateTaskForm extends Component {
           value={notes}
           onChange={onChange}
         />
+        <br />
         <select name="priority" defaultValue="" onChange={onChange}>
           <option disabled={true} value="">
             -- Priority Level --
@@ -66,22 +69,7 @@ class CreateTaskForm extends Component {
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
-
-        {assignToList.map((user) => {
-          return (
-            <div key={user.id}>
-              <input
-                onChange={onChange}
-                type="checkbox"
-                id="vehicle1"
-                name="vehicle1"
-                value={user.id}
-              />
-              <label htmlFor="vehicle1">{user.username}</label>
-            </div>
-          );
-        })}
-        <p>test</p>
+        <br />
         <button disabled={!title || !description || !priority}>Create</button>
       </form>
     );
@@ -101,6 +89,7 @@ const mapState = (state) => {
   console.log(assignToList);
   return {
     assignToList,
+    auth: state.auth,
   };
 };
 const mapDispatch = (dispatch) => {

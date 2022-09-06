@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn, auth }) => (
-  // <h1>Useful App</h1>
   <nav className="navbar navbar-expand-lg bg-light mb-4">
     <div className="container-fluid">
       {isLoggedIn ? (
@@ -14,7 +13,11 @@ const Navbar = ({ handleClick, isLoggedIn, auth }) => (
           </a>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
-          <Link to="/tasks">Tasks</Link>
+          {auth.role === "technician" ? (
+            <Link to="/tasks">Assigned Tasks</Link>
+          ) : (
+            <Link to="/tasks">Tasks</Link>
+          )}
           <a href="#" onClick={handleClick}>
             Logout
           </a>

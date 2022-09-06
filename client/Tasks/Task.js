@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 // import { Link } from "react-router-dom";
 
 const Tasks = ({ task }) => {
+  console.log(task);
   return (
     <div key={task.id}>
       <div>
@@ -19,12 +20,16 @@ const Tasks = ({ task }) => {
       <div>
         <h2>Assigned To:</h2>
         <ul>
-          {task.assignees?.length
-            ? task.assignees.map((assignee) => (
-                <li key={assignee.user.id}>{assignee.user.username}</li>
-              ))
-            : "no assignee"}
+          {task.assignees?.length ? (
+            task.assignees.map((assignee) => (
+              <li key={assignee.user.id}>{assignee.user.username}</li>
+            ))
+          ) : (
+            <li>No one assigned</li>
+          )}
         </ul>
+        <h4>Created By: {task.user?.username} </h4>
+        <h4>Created At: {task.createdAt} </h4>
       </div>
     </div>
   );
