@@ -34,4 +34,11 @@ Task.updateTask = async function (taskReq, id) {
 Task.createTask = async function (task) {
   return await Task.create(task);
 };
+
+Task.deleteTask = async function (id) {
+  const task = await this.findByPk(id * 1);
+  await task.destroy();
+  return;
+};
+
 module.exports = Task;

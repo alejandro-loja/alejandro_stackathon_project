@@ -61,3 +61,12 @@ router.post("/", async (req, res, next) => {
     next(ex);
   }
 });
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    await Task.deleteTask(req.params.id);
+    res.sendStatus(204);
+  } catch (ex) {
+    next(ex);
+  }
+});

@@ -1,11 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
+import dateFormat, { masks } from "dateformat";
 // import { Link } from "react-router-dom";
 
 const Tasks = ({ task }) => {
-  console.log(task);
+  console.log(
+    dateFormat("2022-09-06T05:14:53.315Z", "dddd, mmmm dS, yyyy, h:MM:ss TT")
+  );
   return (
     <div key={task.id}>
+      {/* <button>Delete Task</button> */}
       <div>
         <h1>Title: {task.title}</h1>
         <p>Description: {task.description}</p>
@@ -29,7 +33,10 @@ const Tasks = ({ task }) => {
           )}
         </ul>
         <h4>Created By: {task.user?.username} </h4>
-        <h4>Created At: {task.createdAt} </h4>
+        <h4>
+          Created At:{" "}
+          {task.createdAt && dateFormat(task.createdAt, "mmmm dS, yyyy")}
+        </h4>
       </div>
     </div>
   );

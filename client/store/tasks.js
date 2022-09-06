@@ -60,16 +60,16 @@ export const createTask = (task) => {
 //         dispatch({type: 'UPDATE_PRODUCT', updatedProduct});
 //     }
 // };
-// //delete product
-// export const deleteProduct = (product) => {
-//     return async(dispatch) => {
-//         await axios.delete(`/api/products/${product.id}`, {
-//             headers: {
-//                 authorization: window.localStorage.getItem('token')
-//             }
-//         });
-//         dispatch({type: 'DELETE_TASKS', product});
-//     }
-// };
+//delete task
+export const deleteTask = (task) => {
+  return async (dispatch) => {
+    await axios.delete(`/api/tasks/${task.id}`, {
+      headers: {
+        authorization: window.localStorage.getItem("token"),
+      },
+    });
+    dispatch({ type: "DELETE_TASK", task });
+  };
+};
 
 export default tasks;
