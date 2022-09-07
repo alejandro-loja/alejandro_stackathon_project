@@ -25,3 +25,6 @@ form div {
   overflow-x: hidden;
   overflow-y: auto;
 }
+a:hover {
+  text-decoration: underline;
+}

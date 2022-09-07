@@ -58,7 +58,8 @@ class CreateTaskForm extends Component {
             value={description}
             onChange={onChange}
           />
-
+        </div>
+        <div className="mb-2">
           <textarea
             placeholder="Notes"
             name="notes"
@@ -71,9 +72,9 @@ class CreateTaskForm extends Component {
             <option disabled={true} value="">
               -- Priority Level --
             </option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
           </select>
         </div>
         <br />
@@ -95,10 +96,10 @@ const mapState = (state) => {
   // const assignToList = state.users || [];
 
   const assignToList = state.users.filter((user) => {
-    if (role === "manager") {
-      return user.role === "technician";
-    } else if (role === "supervisor") {
-      return user.role === "manager";
+    if (role === "Manager") {
+      return user.role === "Technician";
+    } else if (role === "Supervisor") {
+      return user.role === "Manager";
     }
   });
   console.log(assignToList);

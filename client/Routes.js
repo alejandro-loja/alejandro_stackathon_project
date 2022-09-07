@@ -26,13 +26,13 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            {auth.role === "technician" && (
+            {auth.role === "Technician" && (
               <Route path="/tasks" exact component={AssignedTasks} />
             )}
-            {auth.role === "manager" && (
+            {auth.role === "Manager" && (
               <Route path="/tasks" exact component={Tasks} />
             )}
-            {auth.role === "supervisor" && (
+            {auth.role === "Supervisor" && (
               <Route path="/users" exact component={Users} />
             )}
 

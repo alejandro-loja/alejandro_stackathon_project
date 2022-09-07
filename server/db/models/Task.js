@@ -13,8 +13,8 @@ const Task = db.define("task", {
   },
   priority: {
     type: Sequelize.ENUM,
-    values: ["high", "low", "medium"],
-    defaultValue: "low",
+    values: ["Low", "Medium", "High"],
+    defaultValue: "Low",
   },
   completedDate: {
     type: Sequelize.DATE,
@@ -26,13 +26,13 @@ const Task = db.define("task", {
   expectedDate: {
     type: Sequelize.DATE,
   },
-  // department: {
-  //   type: Sequelize.ENUM,
-  //   values: ["a", "b", "c"],
-  //   allowNull: true,
-  // },
+  status: {
+    type: Sequelize.ENUM,
+    values: ["Started", "Awaiting Feedback", "Success", "Lost"],
+    allowNull: true,
+  },
   potential: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
   },
 });
 

@@ -11,17 +11,17 @@ const Users = ({ users, auth, deleteUser }) => {
   return (
     <div className="container text-center ">
       <div className="row">
-        <div className="col list-of-things">
+        <div className="col text-start list-of-things ">
           {users ? (
             users.map((user) => (
-              <div className="border p-2" key={user.id}>
-                <h1>
+              <div className="row border p-2" key={user.id}>
+                <h4 className="col-4">
                   {user.username}
                   {/* <Link to={`/tasks/${user.id}`}>{user.username} </Link> */}
-                </h1>
-                <h2>Role: {user.role}</h2>
+                </h4>
+                <h6 className="col-6">Role: {user.role}</h6>
                 <button
-                  className="btn btn-danger"
+                  className="col-2 btn btn-danger"
                   onClick={() => deleteUser(user)}
                 >
                   X
@@ -47,7 +47,7 @@ const Users = ({ users, auth, deleteUser }) => {
  */
 const mapState = (state) => {
   const users = state.users?.filter((user) => {
-    if (user.role === "supervisor") {
+    if (user.role === "Supervisor") {
       return false;
     } else {
       return true;
