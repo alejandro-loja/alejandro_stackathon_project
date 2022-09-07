@@ -32,6 +32,7 @@ class CreateTaskForm extends Component {
       description: "",
       priority: "",
       notes: "",
+      expectedDate: "",
     });
   }
 
@@ -41,8 +42,8 @@ class CreateTaskForm extends Component {
     const { assignToList } = this.props;
     // const { campuses } = this.props;
     return (
-      <form onSubmit={handleSubmit}>
-        <h2>Create Task</h2>
+      <form onSubmit={handleSubmit} className="text-center">
+        <h2 className="fw-bold">Create Task</h2>
         <div className="mb-2">
           <input
             placeholder="Title (Required)"
@@ -86,7 +87,10 @@ class CreateTaskForm extends Component {
           name="expectedDate"
           onChange={onChange}
         ></input>
-        <button disabled={!title || !description || !priority}>Create</button>
+        <br />
+        <button disabled={!title || !description || !priority || !expectedDate}>
+          Create
+        </button>
       </form>
     );
   }

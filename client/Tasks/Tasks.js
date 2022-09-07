@@ -15,9 +15,9 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
     console.log("task is false");
   }
   const color = (priority) => {
-    if (priority === "high") {
+    if (priority === "High") {
       return "danger";
-    } else if (priority === "medium") {
+    } else if (priority === "Medium") {
       return "warning";
     } else {
       return "success";
@@ -30,7 +30,7 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
         <div className="col list-of-things border-bottom">
           {tasks ? (
             tasks.map((task) => (
-              <div className="border p-2" key={task.id}>
+              <div className="row border p-2" key={task.id}>
                 <div className="text-end">
                   <button
                     className="fs-6 btn btn-danger"
@@ -40,7 +40,7 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
                   </button>
                 </div>
                 <Link to={`/tasks/${task.id}`}>
-                  <h1 className="text-wrap">{task.title} </h1>
+                  <h3 className="text-wrap">{task.title} </h3>
                 </Link>
                 <h6
                   className={`badge rounded-pill text-bg-${color(

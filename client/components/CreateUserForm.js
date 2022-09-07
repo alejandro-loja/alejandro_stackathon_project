@@ -73,10 +73,10 @@ const mapState = (state) => {
   // const assignToList = state.users || [];
 
   const assignToList = state.users.filter((user) => {
-    if (role === "manager") {
-      return user.role === "technician";
-    } else if (role === "supervisor") {
-      return user.role === "manager";
+    if (role === "Manager") {
+      return user.role === "Technician";
+    } else if (role === "Supervisor") {
+      return user.role === "Manager";
     }
   });
   // console.log(assignToList);
