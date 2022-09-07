@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createTask } from "../store/";
+import { createUser } from "../store/";
 import auth from "../store/auth";
 
-class CreateTaskForm extends Component {
+class CreateUserForm extends Component {
   constructor() {
     super();
     this.state = {
-      title: "",
-      description: "",
-      notes: "",
-      priority: "",
-      // department: "",
-      //   userId: null,
+      username: "",
+      password: "",
+      role: "",
+      // managerId: "",
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,53 +22,48 @@ class CreateTaskForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // console.log(this.state);
-    this.props.createTask({ ...this.state, userId: this.props.auth.id });
+    console.log(this.state);
+    this.props.createUser({ ...this.state });
     this.setState({
-      title: "",
-      description: "",
-      priority: "",
-      notes: "",
+      username: "",
+      password: "",
+      role: "",
+      managerId: "",
     });
   }
 
   render() {
-    const { title, description, priority, notes } = this.state;
+    const { username, password, role, managerId } = this.state;
     const { handleSubmit, onChange } = this;
-    const { assignToList } = this.props;
+    // const { assignToList } = this.props;
     // const { campuses } = this.props;
     return (
       <form onSubmit={handleSubmit}>
         <h2>Create Task</h2>
         <input
-          placeholder="Title (Required)"
-          value={title}
-          name="title"
+          placeholder="Username (Required)"
+          value={username}
+          name="username"
           onChange={onChange}
         />
-        <textarea
-          placeholder="Description (Required)"
-          name="description"
-          value={description}
+        <input
+          placeholder="Password (Required)"
+          name="password"
+          value={password}
           onChange={onChange}
         />
-        <textarea
-          placeholder="Notes"
-          name="notes"
-          value={notes}
-          onChange={onChange}
-        />
+
         <br />
-        <select name="priority" defaultValue="" onChange={onChange}>
+        <select name="role" defaultValue="" onChange={onChange}>
           <option disabled={true} value="">
-            -- Priority Level --
+            -- Position/Role --
           </option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
+          <option value="manager">Manager</option>
+          <option value="technician">Technician</option>
+          {/* <option value="high">High</option> */}
         </select>
         <br />
-        <button disabled={!title || !description || !priority}>Create</button>
+        <button disabled={!username || !password || !role}>Create</button>
       </form>
     );
   }
@@ -94,9 +87,9 @@ const mapState = (state) => {
 };
 const mapDispatch = (dispatch) => {
   return {
-    createTask: (task) => {
-      dispatch(createTask(task));
+    createUser: (task) => {
+      dispatch(createUser(task));
     },
   };
 };
-export default connect(mapState, mapDispatch)(CreateTaskForm);
+export default connect(mapState, mapDispatch)(CreateUserForm);

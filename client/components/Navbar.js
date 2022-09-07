@@ -13,11 +13,11 @@ const Navbar = ({ handleClick, isLoggedIn, auth }) => (
           </a>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
-          {auth.role === "technician" ? (
+          {auth.role === "technician" && (
             <Link to="/tasks">Assigned Tasks</Link>
-          ) : (
-            <Link to="/tasks">Tasks</Link>
           )}
+          {auth.role === "manager" && <Link to="/tasks">Tasks</Link>}
+          {auth.role === "supervisor" && <Link to="/users">Employees</Link>}
           <a href="#" onClick={handleClick}>
             Logout
           </a>

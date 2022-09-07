@@ -5,6 +5,7 @@ import { Login, Signup } from "./components/AuthForm";
 import Tasks from "./Tasks/Tasks";
 import Task from "./Tasks/Task";
 import Home from "./components/Home";
+import Users from "./Users";
 import { me, fetchTasks, fetchUsers } from "./store";
 import auth from "./store/auth";
 import AssignedTasks from "./Tasks/AssignedTasks";
@@ -25,10 +26,14 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            {auth.role === "technician" ? (
+            {auth.role === "technician" && (
               <Route path="/tasks" exact component={AssignedTasks} />
-            ) : (
+            )}
+            {auth.role === "manager" && (
               <Route path="/tasks" exact component={Tasks} />
+            )}
+            {auth.role === "supervisor" && (
+              <Route path="/users" exact component={Users} />
             )}
             <Route path="/tasks/:id" exact component={Task} />
 

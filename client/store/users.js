@@ -57,4 +57,16 @@ export const createUser = (user) => {
   };
 };
 
+//DELETE task
+export const deleteUser = (user) => {
+  return async (dispatch) => {
+    await axios.delete(`/api/users/${user.id}`, {
+      headers: {
+        authorization: window.localStorage.getItem("token"),
+      },
+    });
+    dispatch({ type: "DELETE_USER", user });
+  };
+};
+
 export default users;

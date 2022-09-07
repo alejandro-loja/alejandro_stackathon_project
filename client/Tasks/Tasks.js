@@ -6,13 +6,13 @@ import { deleteTask } from "../store";
 import auth from "../store/auth";
 
 /**
- * COMPONENTå
+ * COMPONENT
  */
 const Tasks = ({ tasks, auth, deleteTask }) => {
   if (tasks) {
     console.log("task is true");
   } else {
-    console.log("task is falseååå");
+    console.log("task is false");
   }
   const color = (priority) => {
     if (priority === "high") {

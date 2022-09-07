@@ -7,7 +7,7 @@ const Assignee = db.define("assignee", {
   },
   department: {
     type: Sequelize.ENUM,
-    values: ["R&D", "Sales", "QA"],
+    values: ["R&D", "Sales", "QA", "Production", "Applications"],
     allowNull: true,
   },
 });

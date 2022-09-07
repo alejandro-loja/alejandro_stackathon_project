@@ -88,3 +88,18 @@ const hashPassword = async (user) => {
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);
 User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
+
+User.updateUser = async function (userReq, id) {
+  let user = await this.findByPk(id * 1);
+  user = await this.update(userReq);
+  return user;
+};
+User.createUser = async function (user) {
+  return await this.create(user);
+};
+
+User.deleteUser = async function (id) {
+  const user = await this.findByPk(id * 1);
+  await user.destroy();
+  return;
+};

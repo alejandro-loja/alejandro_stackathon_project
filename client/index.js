@@ -9,15 +9,6 @@ import App from "./App";
 
 const root = createRoot(document.querySelector("#app"));
 
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <Router history={history}>
-//       <App />
-//     </Router>
-//   </Provider>,
-//   document.getElementById('app')
-// )
-
 root.render(
   <Provider store={store}>
     <Router history={history}>
