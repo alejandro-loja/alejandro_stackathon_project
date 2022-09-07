@@ -38,13 +38,13 @@ class Routes extends Component {
 
             <Route path="/tasks/:id" exact component={Task} />
 
-            {/* <Redirect to="/home" /> */}
+            <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            {/* <Route path="/signup" component={Signup} /> */}
             {/* <Redirect to="/signup" /> */}
           </Switch>
         )}

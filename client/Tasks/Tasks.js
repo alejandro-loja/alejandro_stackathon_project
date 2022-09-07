@@ -27,7 +27,7 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
   return (
     <div className="container text-center">
       <div className="row">
-        <div className="col">
+        <div className="col list-of-things">
           {tasks ? (
             tasks.map((task) => (
               <div className="border p-2" key={task.id}>
