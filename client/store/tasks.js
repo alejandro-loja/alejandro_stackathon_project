@@ -15,7 +15,7 @@ const tasks = (state = [], action) => {
   return state;
 };
 
-// //get all tasks
+//GET all tasks
 export const fetchTasks = () => {
   return async (dispatch) => {
     const tasks = (
@@ -28,7 +28,8 @@ export const fetchTasks = () => {
     dispatch({ type: "SET_TASKS", tasks });
   };
 };
-//create user
+
+//POST create user
 export const createTask = (task) => {
   return async (dispatch) => {
     task = (
@@ -42,25 +43,22 @@ export const createTask = (task) => {
     dispatch({ type: "CREATE_TASK", task });
   };
 };
-// //update product
-// export const updateProduct = (product, id) => {
-//     return async(dispatch) => {
-//         const updatedProduct = (await axios.put(`/api/products/${id}`, {
-//             name: product.name,
-//             description: product.description,
-//             limit: product.limit,
-//             ml: product.ml,
-//             price: product.price,
-//             imgUrl: product.imgUrl
-//         }, {
-//             headers: {
-//                 authorization: window.localStorage.getItem('token')
-//             }
-//         })).data;
-//         dispatch({type: 'UPDATE_PRODUCT', updatedProduct});
-//     }
-// };
-//delete task
+
+// PUT Update task
+export const updateTask = (task, id) => {
+  return async (dispatch) => {
+    const updatedTask = (
+      await axios.put(`/api/tasks/${id}`, task, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "UPDATE_TASK", updatedTask });
+  };
+};
+
+//DELETE task
 export const deleteTask = (task) => {
   return async (dispatch) => {
     await axios.delete(`/api/tasks/${task.id}`, {

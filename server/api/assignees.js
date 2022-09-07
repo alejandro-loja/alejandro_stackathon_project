@@ -17,24 +17,24 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/more", async (req, res, next) => {
-  try {
-    const assignees = await Assignee.findAll({
-      include: [
-        {
-          model: Task,
-          //   model: User,
-        },
-      ],
-      include: [
-        {
-          //   model: Task,
-          model: User,
-        },
-      ],
-    });
-    res.json(assignees);
-  } catch (err) {
-    next(err);
-  }
-});
+// router.get("/more", async (req, res, next) => {
+//   try {
+//     const assignees = await Assignee.findAll({
+//       include: [
+//         {
+//           model: Task,
+//           //   model: User,
+//         },
+//       ],
+//       include: [
+//         {
+//           //   model: Task,
+//           model: User,
+//         },
+//       ],
+//     });
+//     res.json(assignees);
+//   } catch (err) {
+//     next(err);
+//   }
+// });

@@ -3,16 +3,15 @@ import axios from "axios";
 const users = (state = [], action) => {
   if (action.type === "SET_USERS") {
     return action.users;
+  } else if (action.type === "CREATE_USER") {
+    return [...state, action.user];
+  } else if (action.type === "UPDATE_USER") {
+    return state.map((user) =>
+      user.id === action.updatedUser.id ? action.updatedUser : user
+    );
+  } else if (action.type === "DELETE_USER") {
+    return state.filter((user) => user.id !== action.user.id);
   }
-  //   else if (action.type === "CREATE_USER") {
-  //     return [...state, action.user];
-  //   } else if (action.type === "UPDATE_USER") {
-  //     return state.map((user) =>
-  //     user.id === action.updatedUser.id ? action.updatedUser : user
-  //     );
-  //   } else if (action.type === "DELETE_USER") {
-  //     return state.filter((user) => user.id !== action.user.id);
-  //   }
   return state;
 };
 
@@ -29,6 +28,21 @@ export const fetchUsers = () => {
     dispatch({ type: "SET_USERS", users });
   };
 };
+
+// PUT Update task
+export const updateUser = (user, id) => {
+  return async (dispatch) => {
+    const updatedUser = (
+      await axios.put(`/api/users/${id}`, user, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "UPDATE_USER", updateUser });
+  };
+};
+
 //create user
 export const createUser = (user) => {
   return async (dispatch) => {
@@ -39,7 +53,7 @@ export const createUser = (user) => {
         },
       })
     ).data;
-    dispatch({ type: "CREATE_TASK", user });
+    dispatch({ type: "CREATE_USER", user });
   };
 };
 
