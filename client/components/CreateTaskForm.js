@@ -11,6 +11,7 @@ class CreateTaskForm extends Component {
       description: "",
       notes: "",
       priority: "",
+      expectedDate: "",
       // department: "",
       //   userId: null,
     };
@@ -24,7 +25,7 @@ class CreateTaskForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // console.log(this.state);
+    console.log(this.state);
     this.props.createTask({ ...this.state, userId: this.props.auth.id });
     this.setState({
       title: "",
@@ -35,41 +36,55 @@ class CreateTaskForm extends Component {
   }
 
   render() {
-    const { title, description, priority, notes } = this.state;
+    const { title, description, priority, notes, expectedDate } = this.state;
     const { handleSubmit, onChange } = this;
     const { assignToList } = this.props;
     // const { campuses } = this.props;
     return (
       <form onSubmit={handleSubmit}>
         <h2>Create Task</h2>
+        <div className="mb-2">
+          <input
+            placeholder="Title (Required)"
+            value={title}
+            name="title"
+            onChange={onChange}
+          />
+        </div>
+        <div className="mb-2">
+          <textarea
+            placeholder="Description (Required)"
+            name="description"
+            value={description}
+            onChange={onChange}
+          />
+
+          <textarea
+            placeholder="Notes"
+            name="notes"
+            value={notes}
+            onChange={onChange}
+          />
+        </div>
+        <div className="mb-2">
+          <select name="priority" defaultValue="" onChange={onChange}>
+            <option disabled={true} value="">
+              -- Priority Level --
+            </option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <br />
+        <label htmlFor="expected date">Expected Date:</label>
         <input
-          placeholder="Title (Required)"
-          value={title}
-          name="title"
+          type="date"
+          id="expectedDate"
+          value={expectedDate}
+          name="expectedDate"
           onChange={onChange}
-        />
-        <textarea
-          placeholder="Description (Required)"
-          name="description"
-          value={description}
-          onChange={onChange}
-        />
-        <textarea
-          placeholder="Notes"
-          name="notes"
-          value={notes}
-          onChange={onChange}
-        />
-        <br />
-        <select name="priority" defaultValue="" onChange={onChange}>
-          <option disabled={true} value="">
-            -- Priority Level --
-          </option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-        <br />
+        ></input>
         <button disabled={!title || !description || !priority}>Create</button>
       </form>
     );

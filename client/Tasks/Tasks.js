@@ -25,27 +25,35 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
   };
 
   return (
-    <div className="container text-center">
+    <div className="container">
       <div className="row">
-        <div className="col list-of-things">
+        <div className="col list-of-things border-bottom">
           {tasks ? (
             tasks.map((task) => (
               <div className="border p-2" key={task.id}>
-                <h1>
-                  <Link to={`/tasks/${task.id}`}>{task.title} </Link>
-                  <span
-                    className={`badge rounded-pill text-bg-${color(
-                      task.priority
-                    )}`}
+                <div className="text-end">
+                  <button
+                    className="fs-6 btn btn-danger"
+                    onClick={() => deleteTask(task)}
                   >
-                    Priority: {task.priority}
-                  </span>
-                  <button onClick={() => deleteTask(task)}>X</button>
-                </h1>
-                <h4 className="text-end">
+                    X
+                  </button>
+                </div>
+                <Link to={`/tasks/${task.id}`}>
+                  <h1 className="text-wrap">{task.title} </h1>
+                </Link>
+                <h6
+                  className={`badge rounded-pill text-bg-${color(
+                    task.priority
+                  )}`}
+                >
+                  Priority: {task.priority}
+                </h6>
+
+                <h6 className="text-end">
                   Created By{" "}
                   {task.userId === auth.id ? "You" : task.user?.username}
-                </h4>
+                </h6>
               </div>
             ))
           ) : (
@@ -54,7 +62,7 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
             </div>
           )}
         </div>
-        <div className="col">
+        <div className="col text-center">
           <CreateTaskForm />
         </div>
       </div>
