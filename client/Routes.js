@@ -5,7 +5,7 @@ import { Login, Signup } from "./components/AuthForm";
 import Tasks from "./Tasks/Tasks";
 import Task from "./Tasks/Task";
 import Home from "./components/Home";
-import Users from "./Users";
+import Users from "./Users/Users";
 import { me, fetchTasks, fetchUsers } from "./store";
 import auth from "./store/auth";
 import AssignedTasks from "./Tasks/AssignedTasks";
@@ -35,6 +35,7 @@ class Routes extends Component {
             {auth.role === "supervisor" && (
               <Route path="/users" exact component={Users} />
             )}
+
             <Route path="/tasks/:id" exact component={Task} />
 
             {/* <Redirect to="/home" /> */}

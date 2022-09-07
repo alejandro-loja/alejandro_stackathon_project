@@ -1,25 +1,31 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import CreateUserForm from "./components/CreateUserForm";
-import { deleteUser } from "./store";
+import CreateUserForm from "../components/CreateUserForm";
+import { deleteUser } from "../store";
 
 /**
  * COMPONENT
  */
 const Users = ({ users, auth, deleteUser }) => {
   return (
-    <div className="container text-center">
+    <div className="container text-center ">
       <div className="row">
-        <div className="col">
+        <div className="col list-of-things">
           {users ? (
             users.map((user) => (
               <div className="border p-2" key={user.id}>
                 <h1>
                   {user.username}
                   {/* <Link to={`/tasks/${user.id}`}>{user.username} </Link> */}
-                  <button onClick={() => deleteUser(user)}>X</button>
                 </h1>
+                <h2>Role: {user.role}</h2>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => deleteUser(user)}
+                >
+                  X
+                </button>
               </div>
             ))
           ) : (
@@ -40,8 +46,15 @@ const Users = ({ users, auth, deleteUser }) => {
  * CONTAINER
  */
 const mapState = (state) => {
+  const users = state.users?.filter((user) => {
+    if (user.role === "supervisor") {
+      return false;
+    } else {
+      return true;
+    }
+  });
   return {
-    users: state.users || [],
+    users,
     auth: state.auth,
   };
 };

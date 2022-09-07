@@ -19,3 +19,9 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.list-of-things {
+  height: 600px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}

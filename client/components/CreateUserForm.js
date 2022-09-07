@@ -79,7 +79,7 @@ const mapState = (state) => {
       return user.role === "manager";
     }
   });
-  console.log(assignToList);
+  // console.log(assignToList);
   return {
     assignToList,
     auth: state.auth,
