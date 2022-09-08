@@ -12,7 +12,7 @@ class CreateTaskForm extends Component {
       notes: "",
       priority: "",
       expectedDate: "",
-      // department: "",
+      potential: "",
       userId: "",
     };
     this.onChange = this.onChange.bind(this);
@@ -21,6 +21,7 @@ class CreateTaskForm extends Component {
   }
 
   onChange(e) {
+    console.log(e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -41,26 +42,58 @@ class CreateTaskForm extends Component {
       notes: "",
       expectedDate: "",
       userId: "",
+      potential: "",
     });
   }
 
   disableCreateButton() {
-    const { title, description, priority, notes, expectedDate, userId } =
-      this.state;
-    return (
-      <button
-        disabled={
-          !title || !description || !priority || !expectedDate || !userId
-        }
-      >
-        Create
-      </button>
-    );
+    const {
+      title,
+      description,
+      priority,
+      notes,
+      expectedDate,
+      userId,
+      potential,
+    } = this.state;
+    if (this.props.auth?.role === "Supervisor") {
+      return (
+        <button
+          disabled={
+            !title ||
+            !description ||
+            !priority ||
+            !expectedDate ||
+            !userId ||
+            !potential
+          }
+        >
+          Create
+        </button>
+      );
+    } else {
+      return (
+        <button
+          disabled={
+            !title || !description || !priority || !expectedDate || !potential
+          }
+        >
+          Create
+        </button>
+      );
+    }
   }
 
   render() {
-    const { title, description, priority, notes, expectedDate, userId } =
-      this.state;
+    const {
+      title,
+      description,
+      priority,
+      notes,
+      expectedDate,
+      userId,
+      potential,
+    } = this.state;
     const { handleSubmit, onChange, disableCreateButton } = this;
     const { assignToList, users } = this.props;
     // const { campuses } = this.props;
@@ -112,17 +145,30 @@ class CreateTaskForm extends Component {
         ></input>
         <br />
         <div className="mb-2">
-          <select name="userId" defaultValue="" onChange={onChange}>
-            <option disabled={true} value="">
-              -- Priority Level --
-            </option>
-            {users?.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.username}
-              </option>
-            ))}
-          </select>
+          <label htmlFor="potential">Potential Earning:</label>
+          <input
+            type="number"
+            min="0"
+            name="potential"
+            value={potential}
+            onChange={onChange}
+          />
         </div>
+
+        {auth.role === "Supervisor" && (
+          <div className="mb-2">
+            <select name="userId" defaultValue="" onChange={onChange}>
+              <option disabled={true} value="">
+                -- Priority Level --
+              </option>
+              {users?.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.username}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         <br />
         {disableCreateButton()}
       </form>

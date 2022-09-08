@@ -30,9 +30,10 @@ const Task = db.define("task", {
     type: Sequelize.ENUM,
     values: ["Started", "Awaiting Feedback", "Success", "Lost"],
     allowNull: true,
+    defaultValue: "Started",
   },
   potential: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL,
   },
 });
 

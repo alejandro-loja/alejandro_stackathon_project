@@ -1,16 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import CreateTaskForm from "../components/CreateTaskForm";
+// import CreateTaskForm from "../components/CreateTaskForm";
 
 /**
  * COMPONENT
  */
 const AssignedTasks = ({ myTasks, allTasks }) => {
   const color = (priority) => {
-    if (priority === "high") {
+    if (priority === "High") {
       return "danger";
-    } else if (priority === "medium") {
+    } else if (priority === "Medium") {
       return "warning";
     } else {
       return "success";
@@ -35,7 +35,9 @@ const AssignedTasks = ({ myTasks, allTasks }) => {
                     Priority: {task.priority}
                   </span>
                 </h1>
-                <h4 className="text-end">Assigned By {task.user.username}</h4>
+                <h4 className="text-end">
+                  Assigned By {task.user && task.user.username}
+                </h4>
               </div>
             ))
           ) : (
