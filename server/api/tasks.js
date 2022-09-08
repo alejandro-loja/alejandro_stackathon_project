@@ -56,7 +56,19 @@ router.put("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    res.send(await Task.createTask(req.body));
+    let task = await Task.createTask(req.body);
+    task = await Task.findByPk(task.id, {
+      include: [
+        {
+          model: Assignee,
+          include: [User],
+        },
+        {
+          model: User,
+        },
+      ],
+    });
+    res.send(task);
   } catch (ex) {
     next(ex);
   }

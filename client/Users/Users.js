@@ -46,7 +46,7 @@ const Users = ({ users, auth, deleteUser }) => {
  * CONTAINER
  */
 const mapState = (state) => {
-  const users = state.users?.filter((user) => {
+  const filteredUsers = state.users?.filter((user) => {
     if (user.role === "Supervisor") {
       return false;
     } else {
@@ -54,7 +54,7 @@ const mapState = (state) => {
     }
   });
   return {
-    users,
+    users: filteredUsers,
     auth: state.auth,
   };
 };

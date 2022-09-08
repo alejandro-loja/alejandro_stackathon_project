@@ -13,10 +13,11 @@ class CreateTaskForm extends Component {
       priority: "",
       expectedDate: "",
       // department: "",
-      //   userId: null,
+      userId: "",
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.disableCreateButton = this.disableCreateButton.bind(this);
   }
 
   onChange(e) {
@@ -26,20 +27,42 @@ class CreateTaskForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log(this.state);
-    this.props.createTask({ ...this.state, userId: this.props.auth.id });
+
+    if (this.props.auth.role === "Supervisor") {
+      this.props.createTask({ ...this.state });
+    } else {
+      this.props.createTask({ ...this.state, userId: this.props.auth.id });
+    }
+
     this.setState({
       title: "",
       description: "",
       priority: "",
       notes: "",
       expectedDate: "",
+      userId: "",
     });
   }
 
+  disableCreateButton() {
+    const { title, description, priority, notes, expectedDate, userId } =
+      this.state;
+    return (
+      <button
+        disabled={
+          !title || !description || !priority || !expectedDate || !userId
+        }
+      >
+        Create
+      </button>
+    );
+  }
+
   render() {
-    const { title, description, priority, notes, expectedDate } = this.state;
-    const { handleSubmit, onChange } = this;
-    const { assignToList } = this.props;
+    const { title, description, priority, notes, expectedDate, userId } =
+      this.state;
+    const { handleSubmit, onChange, disableCreateButton } = this;
+    const { assignToList, users } = this.props;
     // const { campuses } = this.props;
     return (
       <form onSubmit={handleSubmit} className="text-center">
@@ -88,9 +111,20 @@ class CreateTaskForm extends Component {
           onChange={onChange}
         ></input>
         <br />
-        <button disabled={!title || !description || !priority || !expectedDate}>
-          Create
-        </button>
+        <div className="mb-2">
+          <select name="userId" defaultValue="" onChange={onChange}>
+            <option disabled={true} value="">
+              -- Priority Level --
+            </option>
+            {users?.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.username}
+              </option>
+            ))}
+          </select>
+        </div>
+        <br />
+        {disableCreateButton()}
       </form>
     );
   }
@@ -98,6 +132,13 @@ class CreateTaskForm extends Component {
 const mapState = (state) => {
   const role = state.auth.role;
   // const assignToList = state.users || [];
+  const filteredUsers = state.users?.filter((user) => {
+    if (user.role === "Manager") {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
   const assignToList = state.users.filter((user) => {
     if (role === "Manager") {
@@ -106,10 +147,11 @@ const mapState = (state) => {
       return user.role === "Manager";
     }
   });
-  console.log(assignToList);
+  // console.log(assignToList);
   return {
     assignToList,
     auth: state.auth,
+    users: filteredUsers,
   };
 };
 const mapDispatch = (dispatch) => {

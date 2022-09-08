@@ -29,7 +29,7 @@ class Routes extends Component {
             {auth.role === "Technician" && (
               <Route path="/tasks" exact component={AssignedTasks} />
             )}
-            {auth.role === "Manager" && (
+            {auth.role !== "Technician" && (
               <Route path="/tasks" exact component={Tasks} />
             )}
             {auth.role === "Supervisor" && (

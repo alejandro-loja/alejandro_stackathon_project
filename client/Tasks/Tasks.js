@@ -9,11 +9,11 @@ import auth from "../store/auth";
  * COMPONENT
  */
 const Tasks = ({ tasks, auth, deleteTask }) => {
-  if (tasks) {
-    console.log("task is true");
-  } else {
-    console.log("task is false");
-  }
+  // if (tasks) {
+  //   console.log("task is true");
+  // } else {
+  //   console.log("task is false");
+  // }
   const color = (priority) => {
     if (priority === "High") {
       return "danger";
@@ -49,11 +49,13 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
                 >
                   Priority: {task.priority}
                 </h6>
-
-                <h6 className="text-end">
-                  Created By{" "}
-                  {task.userId === auth.id ? "You" : task.user?.username}
-                </h6>
+                {task.userId ? (
+                  <h6 className="text-end">
+                    Assigned to: {task.user.username}
+                  </h6>
+                ) : (
+                  <h6>No Leader Assigned Yet</h6>
+                )}
               </div>
             ))
           ) : (
