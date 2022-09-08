@@ -45,7 +45,7 @@ router.get("/more", async (req, res, next) => {
   }
 });
 
-router.put("/", async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
     const task = await Task.updateTask(req.body, req.params.id);
     res.json(task);

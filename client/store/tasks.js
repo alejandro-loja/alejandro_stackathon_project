@@ -45,10 +45,10 @@ export const createTask = (task) => {
 };
 
 // PUT Update task
-export const updateTask = (task, id) => {
+export const updateTask = (task) => {
   return async (dispatch) => {
     const updatedTask = (
-      await axios.put(`/api/tasks/${id}`, task, {
+      await axios.put(`/api/tasks/${task.id}`, task, {
         headers: {
           authorization: window.localStorage.getItem("token"),
         },

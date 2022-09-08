@@ -12,7 +12,7 @@ class CreateTaskForm extends Component {
       notes: "",
       priority: "",
       expectedDate: "",
-      potential: "",
+      potential: 0,
       userId: "",
     };
     this.onChange = this.onChange.bind(this);
