@@ -2,52 +2,24 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import dateFormat, { masks } from "dateformat";
 import UpdateTaskForm from "../components/updateTaskForm";
+import TaskReadOnly from "../components/taskReadOnly";
 // import { Link } from "react-router-dom";
 
-const Tasks = ({ task }) => {
-  return <UpdateTaskForm task={task} />;
-  // return (
-  //   <div key={task.id}>
-  //     {/* <button>Delete Task</button> */}
-  //     <div>
-  //       <h1>Title: {task.title}</h1>
-  //       <p>Description: {task.description}</p>
-  //     </div>
-  //     <div>
-  //       <p>Notes: {task.notes}</p>
-  //     </div>
-  //     <div>
-  //       <h2>Responsibilty</h2>
-  //       <h3>{task.user?.username}</h3>
-  //     </div>
-  //     <div>
-  //       <h2>Assigned To:</h2>
-  //       <ul>
-  //         {task.assignees?.length ? (
-  //           task.assignees.map((assignee) => (
-  //             <li key={assignee.user.id}>{assignee.user.username}</li>
-  //           ))
-  //         ) : (
-  //           <li>No one assigned</li>
-  //         )}
-  //       </ul>
-  //       <h4>Created By: {task.user?.username} </h4>
-  //       <h4>
-  //         Created At:{" "}
-  //         {task.createdAt && dateFormat(task.createdAt, "mmmm dS, yyyy")}
-  //       </h4>
-  //     </div>
-  //   </div>
-  // );
+const Tasks = ({ auth, task, match }) => {
+  if (auth.role === "Technician") {
+    return <TaskReadOnly match={match} />;
+  }
+  return <UpdateTaskForm match={match} />;
 };
 
-const mapState = (state, otherProps) => {
+const mapState = (state, { match }) => {
   const task =
-    state.tasks.find((task) => task.id === 1 * otherProps.match.params.id) ||
-    {};
+    state.tasks.find((task) => task.id === 1 * match.params.id) || {};
 
   return {
     task,
+    match,
+    auth: state.auth,
   };
 };
 

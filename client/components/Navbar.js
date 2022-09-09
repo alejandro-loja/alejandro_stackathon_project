@@ -20,7 +20,7 @@ const Navbar = ({ handleClick, isLoggedIn, auth }) => (
               Assigned Tasks
             </Link>
           )}
-          {auth.role === "Manager" && (
+          {auth.role !== "Technician" && (
             <Link className="link-light" to="/tasks">
               Tasks
             </Link>

@@ -36,7 +36,9 @@ const AssignedTasks = ({ myTasks, allTasks }) => {
                   </span>
                 </h1>
                 <h4 className="text-end">
-                  Assigned By {task.user && task.user.username}
+                  {task.user
+                    ? `Leader: ${task.user.username}`
+                    : "No Leader Assigned"}
                 </h4>
               </div>
             ))

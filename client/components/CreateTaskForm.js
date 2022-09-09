@@ -59,6 +59,7 @@ class CreateTaskForm extends Component {
     if (this.props.auth?.role === "Supervisor") {
       return (
         <button
+          className="btn btn-primary"
           disabled={
             !title ||
             !description ||
@@ -74,6 +75,7 @@ class CreateTaskForm extends Component {
     } else {
       return (
         <button
+          className="btn btn-primary"
           disabled={
             !title || !description || !priority || !expectedDate || !potential
           }

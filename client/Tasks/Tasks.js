@@ -51,7 +51,7 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
                 </h6>
                 {task.userId ? (
                   <h6 className="text-end">
-                    Project Lead: {task.user.username}
+                    Project Lead: {task.user?.username}
                   </h6>
                 ) : (
                   <h6>No Leader Assigned Yet</h6>
