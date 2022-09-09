@@ -90,6 +90,7 @@ User.beforeUpdate(hashPassword);
 User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
 
 User.updateUser = async function (userReq, id) {
+  console.log(userReq, id);
   let user = await this.findByPk(id * 1);
   user = await this.update(userReq);
   return user;

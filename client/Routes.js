@@ -9,6 +9,7 @@ import Users from "./Users/Users";
 import { me, fetchTasks, fetchUsers } from "./store";
 import auth from "./store/auth";
 import AssignedTasks from "./Tasks/AssignedTasks";
+import UpdateUserForm from "./components/UpdateUserForm";
 
 /**
  * COMPONENT
@@ -35,7 +36,7 @@ class Routes extends Component {
             {auth.role === "Supervisor" && (
               <Route path="/users" exact component={Users} />
             )}
-
+            <Route path="/users/:id" exact component={UpdateUserForm} />
             <Route path="/tasks/:id" exact component={Task} />
 
             <Redirect to="/home" />

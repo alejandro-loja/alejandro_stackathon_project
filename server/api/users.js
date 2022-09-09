@@ -42,8 +42,8 @@ router.get("/", async (req, res, next) => {
 
 router.put("/", async (req, res, next) => {
   try {
-    const task = await User.updateUser(req.body, req.params.id);
-    res.json(task);
+    const user = await User.updateUser(req.body, req.params.id);
+    res.json(user);
   } catch (err) {
     next(err);
   }

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import dateFormat, { masks } from "dateformat";
-import UpdateTaskForm from "../components/updateTaskForm";
+
+import UpdateTaskForm from "../components/UpdateTaskForm";
 import TaskReadOnly from "../components/taskReadOnly";
 // import { Link } from "react-router-dom";
 
-const Tasks = ({ auth, task, match }) => {
+const User = ({ auth, task, match }) => {
   if (auth.role === "Technician") {
     return <TaskReadOnly match={match} />;
   }
@@ -23,12 +23,12 @@ const mapState = (state, { match }) => {
   };
 };
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     updateTask: (task) => {
-//       dispatch(updateTask(task));
-//     },
-//   };
-// };
+const mapDispatch = (dispatch) => {
+  return {
+    updateUser: (task) => {
+      dispatch(updateUser(task));
+    },
+  };
+};
 
-export default connect(mapState, null)(Tasks);
+export default connect(mapState, mapDispatch)(User);

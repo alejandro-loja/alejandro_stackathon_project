@@ -30,10 +30,10 @@ export const fetchUsers = () => {
 };
 
 // PUT Update task
-export const updateUser = (user, id) => {
+export const updateUser = (user) => {
   return async (dispatch) => {
     const updatedUser = (
-      await axios.put(`/api/users/${id}`, user, {
+      await axios.put(`/api/users/${user.id}`, user, {
         headers: {
           authorization: window.localStorage.getItem("token"),
         },

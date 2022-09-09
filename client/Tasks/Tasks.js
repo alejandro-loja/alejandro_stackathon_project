@@ -31,17 +31,19 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
           {tasks ? (
             tasks.map((task) => (
               <div className="row border p-2" key={task.id}>
-                <div className="text-end">
-                  <button
-                    className="fs-6 btn btn-danger"
-                    onClick={() => deleteTask(task)}
-                  >
-                    X
-                  </button>
+                <div className="row">
+                  <div className="row text-start">
+                    <Link className="col-10" to={`/tasks/${task.id}`}>
+                      <h3 className="text-wrap">{task.title} </h3>
+                    </Link>
+                    <button
+                      className="col btn btn-danger btn-sm m-1 p-1"
+                      onClick={() => deleteTask(task)}
+                    >
+                      x
+                    </button>
+                  </div>
                 </div>
-                <Link to={`/tasks/${task.id}`}>
-                  <h3 className="text-wrap">{task.title} </h3>
-                </Link>
                 <h6
                   className={`badge rounded-pill text-bg-${color(
                     task.priority
