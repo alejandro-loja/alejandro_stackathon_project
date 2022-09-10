@@ -3,6 +3,34 @@ import { connect } from "react-redux";
 import { createTask } from "../store/";
 import auth from "../store/auth";
 
+////
+let speechRecognition = window.webkitSpeechRecognition;
+let recognition = new speechRecognition();
+let content = "";
+recognition.continous = true;
+recognition.onstart = function () {
+  // instuctions.text("Voice Recognition is on");
+  console.log("Voice Recognition is on");
+};
+recognition.onspeechend = function () {
+  // instuctions.text("No Activity");
+  console.log("No Activity");
+};
+
+recognition.onerror = function () {
+  // instuctions.text("Try Again");
+  console.log("Try Again");
+};
+
+recognition.onresult = function (event) {
+  console.log(event);
+  let current = event.resultIndex;
+  console.log(current);
+  let transcript = event.results[0][0].transcript;
+  console.log(transcript);
+  // this.setState({notes:transcript})
+};
+
 class CreateTaskForm extends Component {
   constructor() {
     super();
@@ -14,10 +42,27 @@ class CreateTaskForm extends Component {
       expectedDate: "",
       potential: 0,
       userId: "",
+      content: "",
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.disableCreateButton = this.disableCreateButton.bind(this);
+    this.voiceToText = this.voiceToText.bind(this);
+  }
+
+  voiceToText(str) {
+    recognition.start();
+    recognition.onresult = (event) => {
+      console.log(event);
+      let current = event.resultIndex;
+      console.log(current);
+      let transcript = event.results[0][0].transcript;
+      if (str === "notes") {
+        this.setState({ notes: transcript });
+      } else if (str === "description") {
+        this.setState({ description: transcript });
+      }
+    };
   }
 
   onChange(e) {
@@ -96,7 +141,7 @@ class CreateTaskForm extends Component {
       userId,
       potential,
     } = this.state;
-    const { handleSubmit, onChange, disableCreateButton } = this;
+    const { handleSubmit, onChange, disableCreateButton, voiceToText } = this;
     const { assignToList, users } = this.props;
     // const { campuses } = this.props;
     return (
@@ -118,6 +163,20 @@ class CreateTaskForm extends Component {
             onChange={onChange}
           />
         </div>
+        <svg
+          onClick={() => {
+            voiceToText("description");
+          }}
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          className="bi bi-mic-fill"
+          viewBox="0 0 16 16"
+        >
+          <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
+          <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
+        </svg>
         <div className="mb-2">
           <textarea
             placeholder="Notes"
@@ -126,6 +185,20 @@ class CreateTaskForm extends Component {
             onChange={onChange}
           />
         </div>
+        <svg
+          onClick={() => {
+            voiceToText("notes");
+          }}
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          className="bi bi-mic-fill"
+          viewBox="0 0 16 16"
+        >
+          <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
+          <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
+        </svg>
         <div className="mb-2">
           <select name="priority" defaultValue="" onChange={onChange}>
             <option disabled={true} value="">

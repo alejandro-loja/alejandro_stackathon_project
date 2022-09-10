@@ -45,15 +45,6 @@ class UpdateTaskForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.updateTask({ ...this.state });
-    // this.setState({
-    //   title: "",
-    //   description: "",
-    //   notes: "",
-    //   priority: "",
-    //   expectedDate: "",
-    //   potential: 0,
-    //   userId: "",
-    // });
   }
 
   render() {
@@ -100,7 +91,7 @@ class UpdateTaskForm extends Component {
             onChange={onChange}
             required
           />
-          <label>Description: </label>
+          <label>Notes: </label>
           <textarea
             type="text"
             cols="30"
