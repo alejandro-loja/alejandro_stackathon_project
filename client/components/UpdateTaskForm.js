@@ -109,6 +109,7 @@ class UpdateTaskForm extends Component {
     const { auth } = this.props;
     return (
       <div className="container">
+        <Link to="/tasks">Go Back</Link>
         <h3>Update Task</h3>
         <form onSubmit={handleSubmit}>
           <label htmlFor="title">Title:</label>

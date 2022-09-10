@@ -79,6 +79,7 @@ class CreateTaskForm extends Component {
       expectedDate: "",
       userId: "",
       potential: 0,
+      assignedId: "",
     });
   }
 
@@ -131,6 +132,7 @@ class CreateTaskForm extends Component {
       expectedDate,
       userId,
       potential,
+      assignedId,
     } = this.state;
     const { handleSubmit, onChange, disableCreateButton, voiceToText } = this;
     const { assignToList, filterUsersAsSupervisor, listOfTechDept, auth } =
@@ -236,6 +238,18 @@ class CreateTaskForm extends Component {
             </select>
           </div>
         )}
+        <div className="mb-2">
+          <select name="assignedId" defaultValue="" onChange={onChange}>
+            <option disabled={true} value="">
+              -- Assign Department --
+            </option>
+            {listOfTechDept?.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.username} - {user.department}
+              </option>
+            ))}
+          </select>
+        </div>
         <br />
         {disableCreateButton()}
       </form>

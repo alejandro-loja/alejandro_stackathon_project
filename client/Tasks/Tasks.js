@@ -29,11 +29,13 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
               <div className="row border p-2" key={task.id}>
                 <div className="row">
                   <div className="row text-start">
-                    <Link className="col-10" to={`/tasks/${task.id}`}>
-                      <h5 className="text-wrap">{task.title} </h5>
+                    <h5 className="col-5 text-wrap">{task.title} </h5>
+                    <Link className="col-5  " to={`/tasks/${task.id}`}>
+                      Edit
                     </Link>
                     <button
-                      className="col btn btn-danger btn-sm m-1 p-1"
+                      // className="col btn text-danger btn-danger btn-sm m-1 p-1"
+                      className="col  btn btn-danger btn-sm m-1 p-1"
                       onClick={() => deleteTask(task)}
                     >
                       x

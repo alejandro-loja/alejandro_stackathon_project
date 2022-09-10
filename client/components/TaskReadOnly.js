@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import dateFormat, { masks } from "dateformat";
+import { Link, useHistory } from "react-router-dom";
+import { updateTask } from "../store";
+import auth from "../store/auth";
 
-const TaskReadOnly = ({ task }) => {
+const TaskReadOnly = ({ auth, task, verify }) => {
   const color = (priority) => {
     if (priority === "High") {
       return "danger";
@@ -15,7 +18,7 @@ const TaskReadOnly = ({ task }) => {
 
   return (
     <div className="container" key={task.id}>
-      {/* <button>Delete Task</button> */}
+      <Link to="/tasks">Go Back</Link>
       <div className="row">
         <div className="col border-right">
           <h1 className="row border-bottom">{task.title}</h1>
@@ -46,6 +49,16 @@ const TaskReadOnly = ({ task }) => {
           {/* {task.assignedId ? <p></p> : <p>No one assigned</p>} */}
           <p className="border">Notes: {task.notes || "None"}</p>
         </div>
+        {auth.id == task.assignedId && (
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              verify(task);
+            }}
+          >
+            Verify
+          </button>
+        )}
       </div>
     </div>
   );
@@ -55,7 +68,9 @@ const mapState = (state, { match }) => {
   const task =
     state.tasks.find((task) => task.id === 1 * match.params.id) || {};
   // const assignedPerson =
+  // console.log(state.auth.id, task.assignedId);
   return {
+    auth: state.auth,
     task,
     match,
   };
@@ -63,8 +78,8 @@ const mapState = (state, { match }) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    updateTask: (task) => {
-      dispatch(updateTask(task));
+    verify: (task) => {
+      dispatch(updateTask({ ...task, verified: true }));
     },
   };
 };

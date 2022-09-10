@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import auth from "../store/auth";
 // import CreateTaskForm from "../components/CreateTaskForm";
 
 /**
@@ -60,7 +61,9 @@ const AssignedTasks = ({ myTasks, activeTasks }) => {
  * CONTAINER
  */
 const mapState = (state) => {
-  const activeTasks = state.tasks?.filter((task) => !task.completed);
+  let activeTasks = state.tasks?.filter(
+    (task) => state.auth.id === task.assignedId
+  );
   return {
     activeTasks: activeTasks || [],
     myTasks: state.tasks || [],
