@@ -88,7 +88,7 @@ const Tasks = ({ allTasks, yourTasks, auth, deleteTask }) => {
  */
 const mapState = (state, { match }) => {
   let yourTasks = state.tasks?.filter((task) => state.auth.id === task.userId);
-  yourTasks = yourTasks.filter((task) => !task.verified);
+  yourTasks = yourTasks?.filter((task) => !task.completed);
   return {
     allTasks: state.tasks || [],
     yourTasks,
