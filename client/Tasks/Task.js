@@ -23,12 +23,4 @@ const mapState = (state, { match }) => {
   };
 };
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     updateTask: (task) => {
-//       dispatch(updateTask(task));
-//     },
-//   };
-// };
-
 export default connect(mapState, null)(Task);

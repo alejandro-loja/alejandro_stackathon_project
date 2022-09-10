@@ -9,11 +9,6 @@ import auth from "../store/auth";
  * COMPONENT
  */
 const Tasks = ({ tasks, auth, deleteTask }) => {
-  // if (tasks) {
-  //   console.log("task is true");
-  // } else {
-  //   console.log("task is false");
-  // }
   const color = (priority) => {
     if (priority === "High") {
       return "danger";
@@ -77,7 +72,8 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = (state, { match }) => {
+  console.log(match);
   return {
     tasks: state.tasks || [],
     auth: state.auth,

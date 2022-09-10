@@ -33,10 +33,12 @@ const TaskReadOnly = ({ task }) => {
               ? dateFormat(task.expectedDate, "mmmm dS, yyyy")
               : "None"}
           </h6>
-          <p className="row">Description: {task.description}</p>
+          <p className="row border">Description: {task.description}</p>
         </div>
         <div className="col">
-          <h6>Created By: {task.user?.username} </h6>
+          <h6>
+            Created By: {task.user?.username ? task.user.username : "None"}{" "}
+          </h6>
           <h6>
             Created At:{" "}
             {task.createdAt && dateFormat(task.createdAt, "mmmm dS, yyyy")}
@@ -51,7 +53,7 @@ const TaskReadOnly = ({ task }) => {
               <li>No one assigned</li>
             )}
           </ul>
-          <p>Notes: {task.notes || "None"}</p>
+          <p className="border">Notes: {task.notes || "None"}</p>
         </div>
       </div>
     </div>

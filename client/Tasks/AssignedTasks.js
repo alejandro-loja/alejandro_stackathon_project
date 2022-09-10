@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 /**
  * COMPONENT
  */
-const AssignedTasks = ({ myTasks, allTasks }) => {
+const AssignedTasks = ({ myTasks, activeTasks }) => {
   const color = (priority) => {
     if (priority === "High") {
       return "danger";
@@ -21,11 +21,11 @@ const AssignedTasks = ({ myTasks, allTasks }) => {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1 className="text-center">Your Assignments</h1>
-          {myTasks ? (
-            myTasks.map((task) => (
+          <h2 className="text-center">Your Assignments</h2>
+          {activeTasks ? (
+            activeTasks.map((task) => (
               <div className="border p-2" key={task.id}>
-                <h1>
+                <h4>
                   <Link to={`/tasks/${task.id}`}>{task.title} </Link>
                   <span
                     className={`badge rounded-pill text-bg-${color(
@@ -34,12 +34,12 @@ const AssignedTasks = ({ myTasks, allTasks }) => {
                   >
                     Priority: {task.priority}
                   </span>
-                </h1>
-                <h4 className="text-end">
+                </h4>
+                <h6 className="text-end">
                   {task.user
                     ? `Leader: ${task.user.username}`
                     : "No Leader Assigned"}
-                </h4>
+                </h6>
               </div>
             ))
           ) : (
@@ -60,9 +60,9 @@ const AssignedTasks = ({ myTasks, allTasks }) => {
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log(state.auth);
+  const activeTasks = state.tasks?.filter((task) => !task.completed);
   return {
-    allTasks: state.tasks || [],
+    activeTasks: activeTasks || [],
     myTasks: state.tasks || [],
   };
 };
