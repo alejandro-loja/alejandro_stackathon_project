@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { createTask } from "../store/";
 import auth from "../store/auth";
 
-////
+//
 let speechRecognition = window.webkitSpeechRecognition;
 let recognition = new speechRecognition();
 let content = "";
@@ -21,15 +21,7 @@ recognition.onerror = function () {
   // instuctions.text("Try Again");
   console.log("Try Again");
 };
-
-recognition.onresult = function (event) {
-  console.log(event);
-  let current = event.resultIndex;
-  console.log(current);
-  let transcript = event.results[0][0].transcript;
-  console.log(transcript);
-  // this.setState({notes:transcript})
-};
+//
 
 class CreateTaskForm extends Component {
   constructor() {

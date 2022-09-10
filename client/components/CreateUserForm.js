@@ -58,8 +58,8 @@ class CreateUserForm extends Component {
           <option disabled={true} value="">
             -- Position/Role --
           </option>
-          <option value="manager">Manager</option>
-          <option value="technician">Technician</option>
+          <option value="Manager">Manager</option>
+          <option value="Technician">Technician</option>
           {/* <option value="high">High</option> */}
         </select>
         <br />
