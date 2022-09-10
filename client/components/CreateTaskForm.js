@@ -34,7 +34,6 @@ class CreateTaskForm extends Component {
       expectedDate: "",
       potential: 0,
       userId: "",
-      content: "",
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,7 +57,7 @@ class CreateTaskForm extends Component {
   }
 
   onChange(e) {
-    console.log(e.target.value);
+    console.log(this.state);
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -67,7 +66,7 @@ class CreateTaskForm extends Component {
     console.log(this.state);
 
     if (this.props.auth.role === "Supervisor") {
-      this.props.createTask({ ...this.state });
+      this.props.createTask({ ...this.state, userId: null });
     } else {
       this.props.createTask({ ...this.state, userId: this.props.auth.id });
     }
@@ -79,7 +78,7 @@ class CreateTaskForm extends Component {
       notes: "",
       expectedDate: "",
       userId: "",
-      potential: "",
+      potential: 0,
     });
   }
 
@@ -98,12 +97,7 @@ class CreateTaskForm extends Component {
         <button
           className="btn btn-primary"
           disabled={
-            !title ||
-            !description ||
-            !priority ||
-            !expectedDate ||
-            !userId ||
-            !potential
+            !title || !description || !priority || !expectedDate || !potential
           }
         >
           Create
