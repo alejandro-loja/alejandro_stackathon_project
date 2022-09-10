@@ -8,7 +8,7 @@ import auth from "../store/auth";
 /**
  * COMPONENT
  */
-const Tasks = ({ tasks, auth, deleteTask }) => {
+const Tasks = ({ allTasks, yourTasks, auth, deleteTask }) => {
   const color = (priority) => {
     if (priority === "High") {
       return "danger";
@@ -18,12 +18,23 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
       return "success";
     }
   };
+  let tasks;
+  if (auth.role === "Supervisor") {
+    tasks = allTasks;
+  } else {
+    tasks = yourTasks;
+  }
 
   return (
     <div className="container">
       <div className="row">
         <div className="col list-of-things border-bottom">
-          <h2>Current Tasks</h2>
+          {auth.role === "Supervisor" ? (
+            <h2>All Tasks</h2>
+          ) : (
+            <h2>Current Tasks</h2>
+          )}
+
           {tasks ? (
             tasks.map((task) => (
               <div className="row border p-2" key={task.id}>
@@ -76,9 +87,11 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
  * CONTAINER
  */
 const mapState = (state, { match }) => {
-  // console.log(match);
+  let yourTasks = state.tasks?.filter((task) => state.auth.id === task.userId);
+  yourTasks = yourTasks.filter((task) => !task.verified);
   return {
-    tasks: state.tasks || [],
+    allTasks: state.tasks || [],
+    yourTasks,
     auth: state.auth,
   };
 };

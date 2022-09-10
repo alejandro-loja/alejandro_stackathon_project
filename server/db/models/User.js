@@ -24,6 +24,7 @@ const User = db.define("user", {
     type: Sequelize.ENUM,
     values: ["R&D", "Sales", "Business", "QA", "Production", "Applications"],
     allowNull: true,
+    defaultValue: "Sales",
   },
 });
 
