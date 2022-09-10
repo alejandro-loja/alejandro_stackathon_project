@@ -66,7 +66,7 @@ class CreateTaskForm extends Component {
     console.log(this.state);
 
     if (this.props.auth.role === "Supervisor") {
-      this.props.createTask({ ...this.state, userId: null });
+      this.props.createTask({ ...this.state });
     } else {
       this.props.createTask({ ...this.state, userId: this.props.auth.id });
     }
@@ -97,7 +97,12 @@ class CreateTaskForm extends Component {
         <button
           className="btn btn-primary"
           disabled={
-            !title || !description || !priority || !expectedDate || !potential
+            !title ||
+            !description ||
+            !priority ||
+            !expectedDate ||
+            !potential ||
+            !userId
           }
         >
           Create
@@ -128,8 +133,9 @@ class CreateTaskForm extends Component {
       potential,
     } = this.state;
     const { handleSubmit, onChange, disableCreateButton, voiceToText } = this;
-    const { assignToList, users } = this.props;
-    // const { campuses } = this.props;
+    const { assignToList, filterUsersAsSupervisor, listOfTechDept, auth } =
+      this.props;
+
     return (
       <form onSubmit={handleSubmit} className="text-center">
         <h2 className="fw-bold">Create Task</h2>
@@ -220,9 +226,9 @@ class CreateTaskForm extends Component {
           <div className="mb-2">
             <select name="userId" defaultValue="" onChange={onChange}>
               <option disabled={true} value="">
-                -- Priority Level --
+                -- Assign Manager --
               </option>
-              {users?.map((user) => (
+              {filterUsersAsSupervisor?.map((user) => (
                 <option key={user.id} value={user.id}>
                   {user.username}
                 </option>
@@ -239,12 +245,12 @@ class CreateTaskForm extends Component {
 const mapState = (state) => {
   const role = state.auth.role;
   // const assignToList = state.users || [];
-  const filteredUsers = state.users?.filter((user) => {
-    if (user.role === "Manager") {
-      return true;
-    } else {
-      return false;
-    }
+  const filterUsersAsSupervisor = state.users?.filter(
+    (user) => user.role === "Manager"
+  );
+
+  const listOfTechDept = state.users?.filter((user) => {
+    return user.role === "Technician";
   });
 
   const assignToList = state.users.filter((user) => {
@@ -258,7 +264,8 @@ const mapState = (state) => {
   return {
     assignToList,
     auth: state.auth,
-    users: filteredUsers,
+    filterUsersAsSupervisor,
+    listOfTechDept,
   };
 };
 const mapDispatch = (dispatch) => {

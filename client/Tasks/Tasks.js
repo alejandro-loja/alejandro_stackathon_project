@@ -23,6 +23,7 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
     <div className="container">
       <div className="row">
         <div className="col list-of-things border-bottom">
+          <h2>Current Tasks</h2>
           {tasks ? (
             tasks.map((task) => (
               <div className="row border p-2" key={task.id}>
@@ -73,7 +74,7 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
  * CONTAINER
  */
 const mapState = (state, { match }) => {
-  console.log(match);
+  // console.log(match);
   return {
     tasks: state.tasks || [],
     auth: state.auth,
