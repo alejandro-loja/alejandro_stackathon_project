@@ -20,6 +20,11 @@ const User = db.define("user", {
     values: ["Supervisor", "Manager", "Technician"],
     defaultValue: "Technician",
   },
+  department: {
+    type: Sequelize.ENUM,
+    values: ["R&D", "Sales", "Business", "QA", "Production", "Applications"],
+    allowNull: true,
+  },
 });
 
 module.exports = User;

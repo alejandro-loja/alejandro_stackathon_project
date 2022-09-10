@@ -18,63 +18,93 @@ async function seed() {
     username: "Lucy",
     password: "lucy",
     role: "Supervisor",
+    department: "Business",
   });
   const ale = await User.create({
     username: "Ale",
     password: "ale",
     role: "Manager",
+    department: "Sales",
   });
   const john = await User.create({
     username: "John",
     password: "john",
     role: "Manager",
+    department: "Sales",
   });
 
-  const joe = await User.create({ username: "Joe", password: "joe" });
-  const moe = await User.create({ username: "Moe", password: "moe" });
-  const mark = await User.create({ username: "Mark", password: "mark" });
-  const dawn = await User.create({ username: "Dawn", password: "dawn" });
-  const maria = await User.create({ username: "Maria", password: "maria" });
+  const joe = await User.create({
+    username: "Joe",
+    password: "joe",
+    department: "QA",
+  });
+  const moe = await User.create({
+    username: "Moe",
+    password: "moe",
+    department: "QA",
+  });
+  const mark = await User.create({
+    username: "Mark",
+    password: "mark",
+    department: "R&D",
+  });
+  const dawn = await User.create({
+    username: "Dawn",
+    password: "dawn",
+    department: "R&D",
+  });
+  const maria = await User.create({
+    username: "Maria",
+    password: "maria",
+    department: "Production",
+  });
 
-  const [smartFood, veganSalmon] = await Promise.all([
-    Task.create({
-      title: "Smart Food",
-      description: "Develop Flavors for Ice Cream Bar",
-      notes: "No R&D needed, used existing library",
-      priority: "High",
-      potential: 300000,
-    }),
-    Task.create({
-      title: "Vegan Salmon",
-      description:
-        "Flavors for Vegan Product. Product must be vegan and but also natural",
-      priority: "Medium",
-      potential: 10000,
-    }),
-    Task.create({
-      title: "Frozen Food",
-      description: "Customer would like their product to be more palettable.",
-      priority: "Medium",
-      potential: 10000,
-    }),
-    Task.create({
-      title: "Ice Cream - Vanilla",
-      description:
-        "Customer would like a new ice cream flavor with a similar profile to the most popular brands.",
-      priority: "Medium",
-      potential: 10000,
-    }),
-  ]);
+  const [smartFood, veganSalmon, frozenFood, vanillaIceCream] =
+    await Promise.all([
+      Task.create({
+        title: "Smart Food",
+        description: "Develop Flavors for Ice Cream Bar",
+        notes: "No R&D needed, used existing library",
+        priority: "High",
+        potential: 300000,
+      }),
+      Task.create({
+        title: "Vegan Salmon",
+        description:
+          "Flavors for Vegan Product. Product must be vegan and but also natural",
+        priority: "Medium",
+        potential: 10000,
+      }),
+      Task.create({
+        title: "Frozen Food",
+        description: "Customer would like their product to be more palettable.",
+        priority: "Medium",
+        potential: 10000,
+      }),
+      Task.create({
+        title: "Vanilla Ice Cream",
+        description:
+          "Customer would like a new ice cream flavor with a similar profile to the most popular brands.",
+        priority: "Medium",
+        potential: 10000,
+      }),
+    ]);
 
   ale.managerId = lucy.id;
   joe.managerId = ale.id;
   moe.managerId = ale.id;
 
   smartFood.userId = ale.id;
-  veganSalmon.userId = ale.id;
+  smartFood.assignedId = joe.id;
 
-  await Assignee.create({ taskId: smartFood.id, userId: joe.id });
-  await Assignee.create({ taskId: smartFood.id, userId: moe.id });
+  veganSalmon.userId = ale.id;
+  veganSalmon.assignedId = moe.id;
+
+  frozenFood.assignedId = moe.id;
+  vanillaIceCream.assignedId = maria.id;
+
+  // await Assignee.create({ taskId: smartFood.id, userId: joe.id });
+  // await Assignee.create({ taskId: smartFood.id, userId: moe.id });
 
   await Promise.all[
     (ale.save(), joe.save(), moe.save(), smartFood.save(), veganSalmon.save())

@@ -30,7 +30,7 @@ const Tasks = ({ tasks, auth, deleteTask }) => {
                 <div className="row">
                   <div className="row text-start">
                     <Link className="col-10" to={`/tasks/${task.id}`}>
-                      <h3 className="text-wrap">{task.title} </h3>
+                      <h5 className="text-wrap">{task.title} </h5>
                     </Link>
                     <button
                       className="col btn btn-danger btn-sm m-1 p-1"

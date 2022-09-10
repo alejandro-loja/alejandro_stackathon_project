@@ -23,6 +23,10 @@ const Task = db.define("task", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  verified: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
   expectedDate: {
     type: Sequelize.DATE,
   },

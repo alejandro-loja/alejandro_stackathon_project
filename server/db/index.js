@@ -14,7 +14,7 @@ Assignee.belongsTo(Task);
 Assignee.belongsTo(User);
 
 User.belongsTo(User, { as: "manager" });
-
+Task.belongsTo(User, { as: "assigned" });
 module.exports = {
   db,
   models: {
