@@ -28,3 +28,7 @@ form div {
 a:hover {
   text-decoration: underline;
 }
+
+svg:hover {
+  opacity: 50%;
+}

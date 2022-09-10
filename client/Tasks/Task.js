@@ -5,7 +5,7 @@ import UpdateTaskForm from "../components/updateTaskForm";
 import TaskReadOnly from "../components/taskReadOnly";
 // import { Link } from "react-router-dom";
 
-const Tasks = ({ auth, task, match }) => {
+const Task = ({ auth, task, match }) => {
   if (auth.role === "Technician") {
     return <TaskReadOnly match={match} />;
   }
@@ -31,4 +31,4 @@ const mapState = (state, { match }) => {
 //   };
 // };
 
-export default connect(mapState, null)(Tasks);
+export default connect(mapState, null)(Task);

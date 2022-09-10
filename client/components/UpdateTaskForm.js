@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateTask } from "../store/";
 import date from "date-and-time";
-
+import { Link, useHistory } from "react-router-dom";
 //
 let speechRecognition = window.webkitSpeechRecognition;
 let recognition = new speechRecognition();
-let content = "";
+// let content = "";
 recognition.continous = true;
 recognition.onstart = function () {
   // instuctions.text("Voice Recognition is on");
@@ -34,10 +34,12 @@ class UpdateTaskForm extends Component {
       expectedDate: "",
       potential: 0,
       userId: "",
+      completed: false,
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.voiceToText = this.voiceToText.bind(this);
+    this.checkboxToggle = this.checkboxToggle.bind(this);
   }
 
   voiceToText(str) {
@@ -54,7 +56,7 @@ class UpdateTaskForm extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.task);
+    // console.log(this.props.task);
     this.setState(this.props.task);
   }
 
@@ -71,12 +73,22 @@ class UpdateTaskForm extends Component {
         expectedDate: "",
         potential: 0,
         userId: "",
+        completed: "",
       });
     }
   }
   onChange(e) {
+    console.log(e.target.name);
+    console.log(e.target.checked);
     this.setState({ [e.target.name]: e.target.value });
   }
+
+  checkboxToggle(e) {
+    console.log(e.target.name);
+    console.log(e.target.checked);
+    this.setState({ completed: !this.state.completed });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.updateTask({ ...this.state });
@@ -91,8 +103,9 @@ class UpdateTaskForm extends Component {
       expectedDate,
       potential,
       userId,
+      completed,
     } = this.state;
-    const { onChange, handleSubmit, voiceToText } = this;
+    const { onChange, handleSubmit, voiceToText, checkboxToggle } = this;
     const { auth } = this.props;
     return (
       <div className="container">
@@ -148,7 +161,6 @@ class UpdateTaskForm extends Component {
             name="notes"
             value={notes || ""}
             onChange={onChange}
-            required
           />
           <svg
             onClick={() => {
@@ -181,6 +193,13 @@ class UpdateTaskForm extends Component {
             <option value="Medium">Medium</option>
             <option value="High">High</option>
           </select>
+          <input
+            name="completed"
+            type="checkbox"
+            id="checkbox"
+            checked={completed}
+            onChange={checkboxToggle}
+          />
           <br />
           <button className="btn btn-primary" type="submit">
             Update Task
