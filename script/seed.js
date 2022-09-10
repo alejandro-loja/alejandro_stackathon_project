@@ -100,14 +100,23 @@ async function seed() {
   veganSalmon.userId = ale.id;
   veganSalmon.assignedId = moe.id;
 
+  frozenFood.userId = john.id;
   frozenFood.assignedId = moe.id;
+
+  vanillaIceCream.userId = john.id;
   vanillaIceCream.assignedId = maria.id;
 
   // await Assignee.create({ taskId: smartFood.id, userId: joe.id });
   // await Assignee.create({ taskId: smartFood.id, userId: moe.id });
 
   await Promise.all[
-    (ale.save(), joe.save(), moe.save(), smartFood.save(), veganSalmon.save())
+    (ale.save(),
+    joe.save(),
+    moe.save(),
+    smartFood.save(),
+    veganSalmon.save(),
+    frozenFood.save(),
+    vanillaIceCream.save())
   ];
   // console.log(`seeded ${tasks.length} tasks`);
   console.log(`seeded successfully`);

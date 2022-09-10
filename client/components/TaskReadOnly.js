@@ -16,7 +16,6 @@ const TaskReadOnly = ({ task }) => {
   return (
     <div className="container" key={task.id}>
       {/* <button>Delete Task</button> */}
-
       <div className="row">
         <div className="col border-right">
           <h1 className="row border-bottom">{task.title}</h1>
@@ -43,16 +42,8 @@ const TaskReadOnly = ({ task }) => {
             Created At:{" "}
             {task.createdAt && dateFormat(task.createdAt, "mmmm dS, yyyy")}
           </h6>
-          <h2>Assigned To:</h2>
-          <ul>
-            {task.assignees?.length ? (
-              task.assignees.map((assignee) => (
-                <li key={assignee.user.id}>{assignee.user.username}</li>
-              ))
-            ) : (
-              <li>No one assigned</li>
-            )}
-          </ul>
+          <h2>Verification Needed By: {task.assigned?.username}</h2>
+          {/* {task.assignedId ? <p></p> : <p>No one assigned</p>} */}
           <p className="border">Notes: {task.notes || "None"}</p>
         </div>
       </div>
@@ -63,7 +54,7 @@ const TaskReadOnly = ({ task }) => {
 const mapState = (state, { match }) => {
   const task =
     state.tasks.find((task) => task.id === 1 * match.params.id) || {};
-
+  // const assignedPerson =
   return {
     task,
     match,

@@ -18,6 +18,10 @@ router.get("/", async (req, res, next) => {
         {
           model: User,
         },
+        {
+          model: User,
+          as: "assigned",
+        },
       ],
     });
     res.json(tasks);
@@ -47,7 +51,22 @@ router.get("/more", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const task = await Task.updateTask(req.body, req.params.id);
+    let task = await Task.updateTask(req.body, req.params.id);
+    task = await Task.findByPk(task.id, {
+      include: [
+        {
+          model: Assignee,
+          include: [User],
+        },
+        {
+          model: User,
+        },
+        {
+          model: User,
+          as: "assigned",
+        },
+      ],
+    });
     res.json(task);
   } catch (err) {
     next(err);
@@ -65,6 +84,10 @@ router.post("/", async (req, res, next) => {
         },
         {
           model: User,
+        },
+        {
+          model: User,
+          as: "assigned",
         },
       ],
     });
