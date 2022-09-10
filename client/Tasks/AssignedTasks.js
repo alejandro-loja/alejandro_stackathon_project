@@ -64,6 +64,7 @@ const mapState = (state) => {
   let activeTasks = state.tasks?.filter(
     (task) => state.auth.id === task.assignedId
   );
+  activeTasks = activeTasks.filter((task) => !task.verified);
   return {
     activeTasks: activeTasks || [],
     myTasks: state.tasks || [],
