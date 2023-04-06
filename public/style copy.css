@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+label {
+  display: block;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
+.list-of-things {
+  height: 600px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+svg:hover {
+  opacity: 50%;
+}

@@ -25,7 +25,7 @@ const AuthForm = (props) => {
         </div>
         <br />
         <div>
-          <button className="btn btn-primary" type="submit">
+          <button className="bg-sky-500 hover:bg-sky-700" type="submit">
             {displayName}
           </button>
         </div>
