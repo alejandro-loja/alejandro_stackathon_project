@@ -24,7 +24,7 @@ class Routes extends Component {
 
     return (
       <>
-        <h1 className="text-red-500">Hello test</h1>
+        <h1>Hello</h1>
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
