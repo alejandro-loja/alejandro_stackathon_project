@@ -12,4 +12,5 @@ const App = () => {
   );
 };
 //notes
+//add comment
 export default App;
